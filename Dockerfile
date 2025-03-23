@@ -4,6 +4,11 @@ WORKDIR /app
 
 COPY . /app
 
-RUN pip install -r requirements.txt
+# Install git and any necessary build dependencies
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
 
 CMD ["python3", "app.py"]
